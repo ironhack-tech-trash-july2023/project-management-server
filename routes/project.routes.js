@@ -28,5 +28,19 @@ router.post("/projects", (req, res, next) => {
 });
 
 
+// GET /api/projects -  Retrieves all of the projects
+router.get('/projects', (req, res, next) => {
+    Project.find()
+        .populate('tasks')
+        .then(allProjects => res.json(allProjects))
+        .catch(err => {
+            console.log("Error getting list of projects...", err);
+            res.status(500).json({
+                message: "Error getting list of projects",
+                error: err
+            });
+        });
+});
+
 
 module.exports = router;
