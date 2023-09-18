@@ -18,7 +18,13 @@ router.post("/projects", (req, res, next) => {
 
     Project.create(newProject)
         .then(response => res.json(response))
-        .catch(err => res.json(err));
+        .catch(err => {
+            console.log("Error creating new project...", err);
+            res.status(500).json({
+                message: "Error creating a new project",
+                error: err
+            });
+        });
 });
 
 
